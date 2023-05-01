@@ -7,12 +7,12 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     private static String CONNECTION_URL =
         "jdbc:sqlserver://localhost;" +
-            "database=inventory;" +
-            "user=dbuser;" +
-            "password=scsd431134dscs;" +
-            "encrypt=true;" +
-            "trustServerCertificate=true;" +
-            "loginTimeout=15;";
+        "database=inventory;" +
+        "user=dbuser;" +
+        "password=scsd431134dscs;" +
+        "encrypt=true;" +
+        "trustServerCertificate=true;" +
+        "loginTimeout=15;";
 
     private static Connection CONNECTION;
 

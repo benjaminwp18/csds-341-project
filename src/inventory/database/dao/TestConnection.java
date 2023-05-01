@@ -10,17 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestConnection {
-    public static ResultSet selectWarehouses() throws SQLException {
-        ResultSet resultSet = null;
+    public static List<List<String>> selectWarehouses() throws SQLException {
+        List<List<String>> results = new ArrayList<>();
 
         try (
             Connection connection = DatabaseConnection.connection();
             Statement statement = connection.createStatement();
         ) {
             String selectSql = "SELECT top 100 * from Warehouse";
-            resultSet = statement.executeQuery(selectSql);
+            ResultSet resultSet = statement.executeQuery(selectSql);
+
+            while (resultSet.next()) {
+                results.add(List.of(
+                    resultSet.getString(1),
+                    resultSet.getString(2)
+                ));
+            }
         }
 
-        return resultSet;
+        return results;
     }
 }
