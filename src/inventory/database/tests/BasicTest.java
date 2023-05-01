@@ -1,11 +1,11 @@
-package src.inventory.database;
+package src.inventory.database.tests;
 
 import src.inventory.database.dao.TestConnection;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class TestHarness {
+public class BasicTest {
     public static void main(String[] args) {
         try {
             List<List<String>> results = TestConnection.selectWarehouses();
