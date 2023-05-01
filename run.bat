@@ -1,3 +1,3 @@
 cd out
-java src.inventory.database.TestHarness
+java src.inventory.database.tests.BasicTest
 cd ..
