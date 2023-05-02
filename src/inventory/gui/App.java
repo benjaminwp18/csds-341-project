@@ -52,6 +52,7 @@ public class App {
 
          buttons.get(2).addActionListener((e) -> {
              try {
+                 clearResults();
                  showAffectedRows(ShawnJung.launchDiscountEvent());
              }
              catch (SQLException | NumberFormatException ex) {
@@ -62,6 +63,7 @@ public class App {
 
         buttons.get(3).addActionListener((e) -> {
             try {
+                clearResults();
                 showAffectedRows(ShawnJung.deleteClosedStore(
                     Integer.parseInt(forms.get(3).get(0).getText())
                 ));
@@ -74,6 +76,7 @@ public class App {
 
         buttons.get(4).addActionListener((e) -> {
             try {
+                clearResults();
                 showAffectedRows(BenjaminPoulin.ship(
                     Integer.parseInt(forms.get(4).get(0).getText()),
                     Integer.parseInt(forms.get(4).get(1).getText()),
@@ -88,6 +91,7 @@ public class App {
 
         buttons.get(5).addActionListener((e) -> {
             try {
+                clearResults();
                 showAffectedRows(BenjaminPoulin.make_high_end(
                     Integer.parseInt(forms.get(5).get(0).getText())
                 ));
@@ -130,5 +134,9 @@ public class App {
 
     public static void showError(int useCase) {
         resultsLabel.setText("Use case " + useCase + " failed. Please be sure to enter valid parameters.");
+    }
+
+    public static void clearResults() {
+        resultsLabel.setText("");
     }
 }
