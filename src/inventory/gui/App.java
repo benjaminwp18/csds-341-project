@@ -50,22 +50,19 @@ public class App {
             )
         );
 
-        // buttons.get(2).addActionListener((e) -> {
-        //     try {
-        //         ShawnJung.ship(
-        //             Integer.parseInt(forms.get(4).get(0).getText()),
-        //             Integer.parseInt(forms.get(4).get(1).getText()),
-        //             Integer.parseInt(forms.get(4).get(2).getText())
-        //         );
-        //     }
-        //     catch (SQLException | NumberFormatException ex) {
-        //         resultsLabel.setText("Use case 5 failed. Please be sure to enter valid parameters.");
-        //     }
-        // });
+         buttons.get(2).addActionListener((e) -> {
+             try {
+                 showAffectedRows(ShawnJung.launchDiscountEvent());
+             }
+             catch (SQLException | NumberFormatException ex) {
+                 showError(3);
+                 ex.printStackTrace();
+             }
+         });
 
         buttons.get(3).addActionListener((e) -> {
             try {
-                showAffectedRows(ShawnJung.delete_closed_store(
+                showAffectedRows(ShawnJung.deleteClosedStore(
                     Integer.parseInt(forms.get(3).get(0).getText())
                 ));
             }

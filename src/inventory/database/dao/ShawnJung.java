@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShawnJung {
-    public static void search_stores_with_a() throws SQLException {
+    public static void searchStoresWithA() throws SQLException {
         List<List<String>> results = new ArrayList<>();
-        
+
         try (
             Connection connection = DatabaseConnection.connection();
             Statement statement = connection.createStatement();
@@ -30,18 +30,21 @@ public class ShawnJung {
         }
     }
 
-    public static void LaunchDiscountEvent() throws SQLException {
-        String call = "{call dbo.discount_event";
+    public static int launchDiscountEvent() throws SQLException {
+        String call = "{call dbo.discount_event}";
 
         try (
             Connection connection = DatabaseConnection.connection();
             PreparedStatement stmt = connection.prepareStatement(call);
-        ) {}
+        ) {
+            stmt.execute();
+            return stmt.getUpdateCount();
+        }
     }
 
-    public static void search_stores_by_name(String str) throws SQLException {
+    public static void searchStoresByName(String str) throws SQLException {
         List<List<String>> results = new ArrayList<>();
-        
+
         try (
             Connection connection = DatabaseConnection.connection();
             Statement statement = connection.createStatement();
@@ -58,7 +61,7 @@ public class ShawnJung {
         }
     }
 
-    public static int delete_closed_store(int storefront) throws SQLException {
+    public static int deleteClosedStore(int storefront) throws SQLException {
         String call = "{call dbo.delete_closed_store(?)}";
 
         try (
