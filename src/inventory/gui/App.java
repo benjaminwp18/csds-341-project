@@ -68,6 +68,7 @@ public class App {
             }
             catch (SQLException | NumberFormatException ex) {
                 resultsLabel.setText("Use case 4 failed. Please be sure to enter valid parameters.");
+                ex.printStackTrace();
             }
         });
 
@@ -81,6 +82,7 @@ public class App {
             }
             catch (SQLException | NumberFormatException ex) {
                 resultsLabel.setText("Use case 5 failed. Please be sure to enter valid parameters.");
+                ex.printStackTrace();
             }
         });
 
@@ -92,6 +94,7 @@ public class App {
             }
             catch (SQLException | NumberFormatException ex) {
                 resultsLabel.setText("Use case 6 failed. Please be sure to enter valid parameters.");
+                ex.printStackTrace();
             }
         });
 
