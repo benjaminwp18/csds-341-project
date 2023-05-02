@@ -80,12 +80,12 @@ WHERE CreditRating = 'C';
 
 INSERT INTO Product (Name, Price)
 VALUES
-	('Pencil', 2),
-	('Peanut Butter', 7),
-	('Body Wash', 10),
-	('Scissors', 3),
-	('Towel', 5),
-	('Shirt', 10);
+	('Pencil', 200),
+	('Peanut Butter', 700),
+	('Body Wash', 1000),
+	('Scissors', 300),
+	('Towel', 500),
+	('Shirt', 1000);
 
 INSERT INTO ProductCategory (CategoryName)
 VALUES
