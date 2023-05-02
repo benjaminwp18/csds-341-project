@@ -2,6 +2,7 @@ package src.inventory.gui;
 
 import src.inventory.database.dao.BenjaminPoulin;
 import src.inventory.database.dao.ShawnJung;
+import src.inventory.database.dao.WillFranzen;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -28,14 +29,14 @@ public class App {
 
         List<List<JTextField>> forms = List.of(
             List.of(
-
+                new JTextField("Product"),
+                new JTextField("Price")
             ),
             List.of(
-
+                new JTextField("Product"),
+                new JTextField("WarehouseID")
             ),
-            List.of(
-
-            ),
+            List.of(),
             List.of(
                 new JTextField("StorefrontID")
             ),
@@ -50,16 +51,44 @@ public class App {
             )
         );
 
-         buttons.get(2).addActionListener((e) -> {
-             try {
-                 clearResults();
-                 showAffectedRows(ShawnJung.launchDiscountEvent());
-             }
-             catch (SQLException | NumberFormatException ex) {
-                 showError(3);
-                 ex.printStackTrace();
-             }
-         });
+        buttons.get(0).addActionListener((e) -> {
+            try {
+                clearResults();
+                showAffectedRows(WillFranzen.add_product(
+                    Integer.parseInt(forms.get(0).get(0).getText()),
+                    Integer.parseInt(forms.get(0).get(1).getText())
+                ));
+            }
+            catch (SQLException | NumberFormatException ex) {
+                showError(1);
+                ex.printStackTrace();
+            }
+        });
+
+        buttons.get(1).addActionListener((e) -> {
+            try {
+                clearResults();
+                showAffectedRows(WillFranzen.update_price_on_product_insert(
+                    forms.get(1).get(0).getText(),
+                    Integer.parseInt(forms.get(1).get(1).getText())
+                ));
+            }
+            catch (SQLException | NumberFormatException ex) {
+                showError(2);
+                ex.printStackTrace();
+            }
+        });
+
+        buttons.get(2).addActionListener((e) -> {
+            try {
+                clearResults();
+                showAffectedRows(ShawnJung.launchDiscountEvent());
+            }
+            catch (SQLException | NumberFormatException ex) {
+                showError(3);
+                ex.printStackTrace();
+            }
+        });
 
         buttons.get(3).addActionListener((e) -> {
             try {
