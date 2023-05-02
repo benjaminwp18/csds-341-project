@@ -1,5 +1,5 @@
 cd out
-java src.inventory.database.tests.BasicTest
+java src.inventory.gui.App
 cd ..
 
 PAUSE

@@ -58,14 +58,16 @@ public class ShawnJung {
         }
     }
 
-    public static void delete_closed_store(int storefront) throws SQLException {
-        String call = "{call dbo.delete_closed_store(?)";
+    public static int delete_closed_store(int storefront) throws SQLException {
+        String call = "{call dbo.delete_closed_store(?)}";
 
         try (
             Connection connection = DatabaseConnection.connection();
             PreparedStatement stmt = connection.prepareStatement(call);
         ) {
             stmt.setInt(1, storefront);
+            stmt.execute();
+            return stmt.getUpdateCount();
         }
     }
 }
