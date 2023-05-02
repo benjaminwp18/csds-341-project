@@ -4,6 +4,7 @@ import src.inventory.database.dao.BenjaminPoulin;
 import src.inventory.database.dao.ShawnJung;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
@@ -102,17 +103,26 @@ public class App {
 
         for (int i = 0; i < buttons.size(); i++) {
             JPanel section = new JPanel();
+            section.setAlignmentX(Component.LEFT_ALIGNMENT);
+            section.setBorder(new EmptyBorder(10, 10, 10, 10));
             for (Component c : forms.get(i)) {
                 section.add(c);
+                c.setMaximumSize(new Dimension(
+                    Integer.MAX_VALUE,
+                    (int)c.getPreferredSize().getHeight() + 5
+                ));
             }
             section.add(buttons.get(i));
             section.setLayout(new BoxLayout(section, BoxLayout.X_AXIS));
             frame.add(section);
         }
 
+        resultsLabel.setBorder(new EmptyBorder(10, 10, 10, 10));
         frame.add(resultsLabel);
+        resultsLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
+        resultsLabel.setText("Results will appear here");
 
-        frame.setSize(500, 600);
+        frame.setSize(400, 375);
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.setVisible(true);
     }
