@@ -24,8 +24,12 @@ BEGIN
     WHERE ProductID IN (
         SELECT CP.ProductID
         FROM CategoriesProducts CP
-        LEFT JOIN StorefrontsProducts SP ON CP.ProductID = SP.ProductID
-        WHERE SP.ProductID IS NULL
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM StorefrontsProducts SP
+            WHERE SP.ProductID = CP.ProductID
+            AND SP.StorefrontID <> @StorefrontID
+        )
     );
 
     -- 5. Delete the corresponding rows from the WarehousesProducts table
@@ -34,13 +38,26 @@ BEGIN
     WHERE ProductID IN (
         SELECT WP.ProductID
         FROM WarehousesProducts WP
-        LEFT JOIN StorefrontsProducts SP ON WP.ProductID = SP.ProductID
-        WHERE SP.ProductID IS NULL
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM StorefrontsProducts SP
+            WHERE SP.ProductID = WP.ProductID
+            AND SP.StorefrontID <> @StorefrontID
+        )
     );
 
     -- 6. Delete the closed storefront from the Storefront table.
     DELETE FROM Storefront
     WHERE StorefrontID = @StorefrontID;
+
+    -- 7. Delete the product from the Product table if no other storefront uses it.
+    DELETE FROM Product
+    WHERE ProductID IN (
+        SELECT P.ProductID
+        FROM Product P
+        LEFT JOIN StorefrontsProducts SP ON P.ProductID = SP.ProductID
+        WHERE SP.ProductID IS NULL
+    );
 
     COMMIT;
 END;
