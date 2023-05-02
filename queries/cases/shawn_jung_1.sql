@@ -3,7 +3,7 @@
 -- We are offering 10% discount for every product they have.
 
 -- 1. Get the store names and their corresponding warehouse locations,
--- where the stores have a credit rating of A
+-- where the stores have a credit rating of A.
 SELECT Storefront.StoreName, Warehouse.Location
 FROM Storefront
 INNER JOIN Warehouse ON Storefront.WarehouseID = Warehouse.WarehouseID
@@ -24,7 +24,7 @@ WHERE ProductID IN (
 
 -- 3. After discounting products for storefronts with 'A' rating,
 -- update the ProductID values in the StorefrontsProducts table for the discounted products,
--- based on the matching CreditRating condition
+-- based on the matching CreditRating condition.
 UPDATE sp
 SET sp.ProductID = p2.ProductID
 FROM StorefrontsProducts sp
