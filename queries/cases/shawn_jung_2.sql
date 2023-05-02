@@ -9,7 +9,7 @@ FROM Storefront
 WHERE Storefront.StoreName LIKE 'Stap%'
 
 -- 2. Create stored procedure 
-CREATE PROCEDURE DeleteClosedStore(@StorefrontID INT)
+CREATE PROCEDURE delete_closed_store(@StorefrontID INT)
 AS
 BEGIN
     BEGIN TRANSACTION;
