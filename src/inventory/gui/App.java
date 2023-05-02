@@ -1,6 +1,7 @@
 package src.inventory.gui;
 
 import src.inventory.database.dao.BenjaminPoulin;
+import src.inventory.database.dao.ShawnJung;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +34,7 @@ public class App {
 
             ),
             List.of(
-
+                new JTextField("StorefrontID")
             ),
             List.of(
                 new JTextField("WarehouseID"),
@@ -45,6 +46,30 @@ public class App {
 
             )
         );
+
+        // buttons.get(2).addActionListener((e) -> {
+        //     try {
+        //         ShawnJung.ship(
+        //             Integer.parseInt(forms.get(4).get(0).getText()),
+        //             Integer.parseInt(forms.get(4).get(1).getText()),
+        //             Integer.parseInt(forms.get(4).get(2).getText())
+        //         );
+        //     }
+        //     catch (SQLException | NumberFormatException ex) {
+        //         resultsLabel.setText("Use case 5 failed. Please be sure to enter valid parameters.");
+        //     }
+        // });
+
+        buttons.get(3).addActionListener((e) -> {
+            try {
+                ShawnJung.delete_closed_store(
+                    Integer.parseInt(forms.get(3).get(0).getText())
+                );
+            }
+            catch (SQLException | NumberFormatException ex) {
+                resultsLabel.setText("Use case 4 failed. Please be sure to enter valid parameters.");
+            }
+        });
 
         buttons.get(4).addActionListener((e) -> {
             try {
