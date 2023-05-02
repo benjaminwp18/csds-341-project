@@ -44,19 +44,28 @@ AS
 BEGIN
     BEGIN TRANSACTION high_end;
 
-    DELETE FROM ProductsStorefronts
-    WHERE ProductID in (
-        SELECT ProductID
-        FROM Product AS p
-        INNER JOIN (
-            SELECT MIN(i.Price) AS minPrice FROM Product AS i
-            INNER JOIN ProductsStorefronts
-            ON ProductsStorefronts.ProductID = i.ProductID
-            WHERE ProductsStorefronts.StorefrontID = 7
-        ) AS p2
-        ON p.ProductID = p2.ProductID
-        WHERE p.Price = p2.minPrice;
-    )
+	WITH p2 AS (
+		SELECT
+			MIN(i.Price) AS minPrice
+		FROM Product AS i
+        INNER JOIN StorefrontsProducts
+        ON StorefrontsProducts.ProductID = i.ProductID
+        WHERE StorefrontsProducts.StorefrontID = @StorefrontID
+	)
+    DELETE FROM StorefrontsProducts
+    WHERE
+		StorefrontsProducts.ProductID IN (
+			SELECT StorefrontsProducts.ProductID FROM StorefrontsProducts
+			INNER JOIN Product as p
+			ON StorefrontsProducts.ProductID = p.ProductID
+			WHERE p.Price IN (SELECT minPrice from p2)
+		) AND
+		StorefrontsProducts.StorefrontID IN (
+			SELECT StorefrontsProducts.StorefrontID FROM StorefrontsProducts
+			INNER JOIN Product as p
+			ON StorefrontsProducts.ProductID = p.ProductID
+			WHERE p.Price IN (SELECT minPrice from p2)
+		)
 
     COMMIT TRANSACTION high_end;
 END

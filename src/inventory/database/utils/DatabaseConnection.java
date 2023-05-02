@@ -14,18 +14,16 @@ public class DatabaseConnection {
         "trustServerCertificate=true;" +
         "loginTimeout=15;";
 
-    private static Connection CONNECTION;
+    public static Connection connection() {
+        Connection connection = null;
 
-    static {
         try {
-            CONNECTION = DriverManager.getConnection(CONNECTION_URL);
+            connection = DriverManager.getConnection(CONNECTION_URL);
         }
-        catch (SQLException e) {
+            catch (SQLException e) {
             e.printStackTrace();
         }
-    }
 
-    public static synchronized Connection connection() {
-        return CONNECTION;
+        return connection;
     }
 }
