@@ -12,6 +12,7 @@ WHERE Storefront.CreditRating = 'A';
 CREATE PROCEDURE discount_event
 AS
 BEGIN
+    BEGIN TRANSACTION discount;
 
     -- 2. Add discounted products to the Product table for storefronts that have a credit rating of “A”,
     -- with a 10% discount applied to the original prices. The discounted products have the same names

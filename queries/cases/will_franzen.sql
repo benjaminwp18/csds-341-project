@@ -22,6 +22,7 @@ CREATE PROCEDURE update_or_insert_product (
 )
 AS
 BEGIN
+    BEGIN TRANSACTION update_or_insert;
     IF EXISTS (SELECT 1 FROM Product WHERE Name = @ProductName)
         UPDATE Product SET Price = @Price WHERE Name = @ProductName
     ELSE
