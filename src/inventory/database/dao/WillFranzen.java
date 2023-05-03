@@ -7,15 +7,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class WillFranzen {
-    public static int addProduct(int product, int warehouse) throws SQLException {
-        String call = "{call dbo.add_product_w_ware(?, ?)}";
+    public static int insertStorefrontsProducts(int storefront, int product) throws SQLException {
+        String call = "INSERT INTO StorefrontsProducts (StorefrontID, ProductID) VALUES (?, ?)}";
 
         try (
             Connection connection = DatabaseConnection.connection();
             PreparedStatement stmt = connection.prepareStatement(call);
         ) {
-            stmt.setInt(1, product);
-            stmt.setInt(2, warehouse);
+            stmt.setInt(1, storefront);
+            stmt.setInt(2, product);
             stmt.execute();
             return stmt.getUpdateCount();
         }

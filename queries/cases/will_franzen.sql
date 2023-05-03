@@ -1,16 +1,18 @@
 --- Add New Product and Create Warehouse Space ---
-CREATE FUNCTION add_product_w_ware(new_product Product, User_Ware_ID INTEGER)
-RETURNS void AS $$
+CREATE TRIGGER store_credit_check
+ON StorefrontsProducts
+AFTER INSERT
+AS
 BEGIN
+	DECLARE @CreditRating CHAR(1)
+	SELECT @CreditRating = CreditRating FROM Storefront WHERE StorefrontID = (SELECT StorefrontID FROM inserted)
 
-  INSERT INTO Product (Name, Price)
-  VALUES (new_product.Name, new_product.Price)
-  RETURNING ProductID INTO new_product.ProductID;
-
-  INSERT INTO WarehousesProducts (WarehouseID, ProductID, Stock, Aisle)
-  VALUES (User_Ware_ID, new_product.ProductID, 0, '');
-
-END;
+	IF @CreditRating = 'C'
+		BEGIN
+			RAISERROR ('Credit rating too low for new products', 16, 1)
+			ROLLBACK TRANSACTION
+		END
+END
 
 --- Update or Insert Product ---
 CREATE PROCEDURE update_or_insert_product (

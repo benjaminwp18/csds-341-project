@@ -19,7 +19,7 @@ public class App {
         resultsLabel = new JLabel();
 
         List<JButton> buttons = List.of(
-            new JButton("1. Add a new product and create space in warehouse"),
+            new JButton("1. Try inserting into StorefrontsProducts"),
             new JButton("2. Update or create product"),
             new JButton("3. Discount Event"),
             new JButton("4. Closed Store"),
@@ -29,8 +29,8 @@ public class App {
 
         List<List<JTextField>> forms = List.of(
             List.of(
-                new JTextField("ProductID"),
-                new JTextField("WarehouseID")
+                new JTextField("StorefrontID"),
+                new JTextField("ProductID")
             ),
             List.of(
                 new JTextField("Product Name"),
@@ -55,7 +55,7 @@ public class App {
         buttons.get(0).addActionListener((e) -> {
             try {
                 clearResults();
-                showAffectedRows(WillFranzen.addProduct(
+                showAffectedRows(WillFranzen.insertStorefrontsProducts(
                     Integer.parseInt(forms.get(0).get(0).getText()),
                     Integer.parseInt(forms.get(0).get(1).getText())
                 ));
