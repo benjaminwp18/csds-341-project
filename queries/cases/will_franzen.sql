@@ -12,21 +12,27 @@ BEGIN
 
 END;
 
---- Price Change with New Product ---
-CREATE PROCEDURE update_price_on_product_insert(
-  user_prod_name VARCHAR(50),
-  user_prod_price INT
+--- Update or Insert Product ---
+CREATE PROCEDURE update_or_insert_product (
+   @ProductName VARCHAR(50),
+   @Price INT,
+   @CategoryName VARCHAR(50)
 )
 AS
 BEGIN
-     BEGIN TRANSACTION;
+    IF EXISTS (SELECT 1 FROM Product WHERE Name = @ProductName)
+        UPDATE Product SET Price = @Price WHERE Name = @ProductName
+    ELSE
+        BEGIN
+            INSERT INTO Product (Name, Price)
+            VALUES (@ProductName, @Price)
 
-     IF EXISTS (SELECT 1 FROM Product WHERE Name = user_prod_name) THEN
-          UPDATE Product SET Price = user_prod_price WHERE Name =
-         user_prod_name;
-     ELSE
-          INSERT INTO Product (Name, Price, CategoryName)
-          VALUES (user_prod_name, user_prod_price, 'Uncategorized');
-     END IF;
-     COMMIT;
-END;
+            IF NOT EXISTS (SELECT 1 FROM ProductCategory WHERE CategoryName = @CategoryName)
+                INSERT INTO ProductCategory (CategoryName) VALUES (@CategoryName)
+
+			INSERT INTO CategoriesProducts (ProductID, CategoryID) VALUES (
+				(SELECT ProductID from Product WHERE Name = @ProductName),
+				(SELECT CategoryID from ProductCategory WHERE CategoryName = @CategoryName)
+			)
+        END
+END

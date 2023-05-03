@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class WillFranzen {
-    public static int add_product(int product, int warehouse) throws SQLException {
+    public static int addProduct(int product, int warehouse) throws SQLException {
         String call = "{call dbo.add_product_w_ware(?, ?)}";
 
         try (
@@ -21,8 +21,8 @@ public class WillFranzen {
         }
     }
 
-    public static int update_price_on_product_insert(String product, int price) throws SQLException {
-        String call = "{call dbo.update_price_on_product_insert(?, ?)}";
+    public static int updateOrInsertProduct(String product, int price, String category) throws SQLException {
+        String call = "{call dbo.update_or_insert_product(?, ?, ?)}";
 
         try (
             Connection connection = DatabaseConnection.connection();
@@ -30,6 +30,7 @@ public class WillFranzen {
         ) {
             stmt.setString(1, product);
             stmt.setInt(2, price);
+            stmt.setString(3, category);
             stmt.execute();
             return stmt.getUpdateCount();
         }

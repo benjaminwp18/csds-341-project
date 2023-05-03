@@ -20,7 +20,7 @@ public class App {
 
         List<JButton> buttons = List.of(
             new JButton("1. Add a new product and create space in warehouse"),
-            new JButton("2. Price change with new product"),
+            new JButton("2. Update or create product"),
             new JButton("3. Discount Event"),
             new JButton("4. Closed Store"),
             new JButton("5. Restock a Store"),
@@ -29,19 +29,20 @@ public class App {
 
         List<List<JTextField>> forms = List.of(
             List.of(
-                new JTextField("Product"),
-                new JTextField("Price")
+                new JTextField("ProductID"),
+                new JTextField("WarehouseID")
             ),
             List.of(
-                new JTextField("Product"),
-                new JTextField("WarehouseID")
+                new JTextField("Product Name"),
+                new JTextField("Price"),
+                new JTextField("Category Name")
             ),
             List.of(),
             List.of(
                 new JTextField("StorefrontID")
             ),
             List.of(
-                new JTextField("WarehouseID"),
+                new JTextField("StorefrontID"),
                 new JTextField("ProductID"),
                 new JTextField("Amount")
             ),
@@ -54,7 +55,7 @@ public class App {
         buttons.get(0).addActionListener((e) -> {
             try {
                 clearResults();
-                showAffectedRows(WillFranzen.add_product(
+                showAffectedRows(WillFranzen.addProduct(
                     Integer.parseInt(forms.get(0).get(0).getText()),
                     Integer.parseInt(forms.get(0).get(1).getText())
                 ));
@@ -68,9 +69,10 @@ public class App {
         buttons.get(1).addActionListener((e) -> {
             try {
                 clearResults();
-                showAffectedRows(WillFranzen.update_price_on_product_insert(
+                showAffectedRows(WillFranzen.updateOrInsertProduct(
                     forms.get(1).get(0).getText(),
-                    Integer.parseInt(forms.get(1).get(1).getText())
+                    Integer.parseInt(forms.get(1).get(1).getText()),
+                    forms.get(1).get(2).getText()
                 ));
             }
             catch (SQLException | NumberFormatException ex) {
