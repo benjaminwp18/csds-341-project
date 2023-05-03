@@ -1,4 +1,4 @@
---- Add New Product and Create Warehouse Space ---
+--- Only allow products to be inserted for stores with good credit ---
 CREATE TRIGGER store_credit_check
 ON StorefrontsProducts
 AFTER INSERT
