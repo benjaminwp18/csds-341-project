@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class WillFranzen {
     public static int insertStorefrontsProducts(int storefront, int product) throws SQLException {
-        String call = "INSERT INTO StorefrontsProducts (StorefrontID, ProductID) VALUES (?, ?)}";
+        String call = "INSERT INTO StorefrontsProducts (StorefrontID, ProductID) VALUES (?, ?)";
 
         try (
             Connection connection = DatabaseConnection.connection();

@@ -61,7 +61,12 @@ public class App {
                 ));
             }
             catch (SQLException | NumberFormatException ex) {
-                showError(1);
+                if (ex instanceof SQLException) {
+                    showError(ex);
+                }
+                else {
+                    showError(1);
+                }
                 ex.printStackTrace();
             }
         });
@@ -165,6 +170,10 @@ public class App {
 
     public static void showError(int useCase) {
         resultsLabel.setText("Use case " + useCase + " failed. Please be sure to enter valid parameters.");
+    }
+
+    public static void showError(Exception exception) {
+        resultsLabel.setText("Error: " + exception.getMessage());
     }
 
     public static void clearResults() {
