@@ -154,7 +154,7 @@ public class App {
         resultsLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
         resultsLabel.setText("Results will appear here");
 
-        frame.setSize(400, 375);
+        frame.setSize(600, 375);
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.setVisible(true);
     }
